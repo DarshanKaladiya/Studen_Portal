@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signin</title>
+    <link rel="stylesheet" href="{% static 'signin.css' %}">
+</head>
+<body>
+
+    {% for message in message %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>Message : </strong> {{ message }}
+    <button type="button" class="class" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    {% endfor %}
+
+    <form action="/signin" method="post">
+    {% csrf_token %}
+        <label>Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter Your Username" required>
+        <br>
+
+        <label>Password</label>
+        <input type="password" id="pass1" name="pass1" placeholder="Enter Your Password" required>
+        <br>
+
+        <label>You are a</label><br>
+        <input type="radio" name="role" value="student" required> Student
+        <input type="radio" name="role" value="mentor" required> Mentor 
+        <br>
+
+        <button type="submit">Sign In</button>
+
+        {% if error %}
+        <p style="color: #D22B2B; font-weight: bold;">{{ error }}</p>
+        {% endif %}
+
+    </form>
+</body>
+</html>

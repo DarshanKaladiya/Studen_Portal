@@ -1,0 +1,190 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Navigation Bar */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #222, #333);
+    color: white;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #8A2BE2;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Upload Section */
+.upload-section {
+    text-align: center;
+    padding: 50px;
+    margin-top: 80px;
+}
+
+form {
+    background: #1e1e1e;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+    margin: auto;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background: #252525;
+    color: white;
+}
+
+button {
+    background-color: #8A2BE2;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #6A1B9A;
+}
+
+/* File List */
+.file-list {
+    text-align: center;
+    padding: 50px;
+}
+
+.file-item {
+    background: #252525;
+    padding: 20px;
+    margin: 10px auto;
+    border-radius: 10px;
+    width: 60%;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content */
+    text-align: center;
+}
+
+.file-item img, .file-item video {
+    max-width: 100%;
+    margin-top: 10px;
+}
+
+.file-item a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #8A2BE2;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.file-item a:hover {
+    color: #6A1B9A;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    form {
+        width: 90%;
+    }
+    .file-item {
+        width: 90%;
+    }
+}
+
+.file-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Space between buttons */
+    align-items: center;
+    margin-top: 10px;
+}
+
+.view-btn {
+    background-color: transparent;
+    color: #a04dff;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: color 0.3s;
+}
+
+.view-btn:hover {
+    color: #d0a2ff;
+}
+
+.delete-form {
+    margin: 0;
+    display: inline;
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 5px 10px;
+    border: none; /* Removes border */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    outline: none; /* Prevents focus outline */
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+    box-shadow: 0px 0px 8px rgba(255, 77, 77, 0.5); /* Adds a soft glow effect */
+}
+
+.delete-btn:focus {
+    outline: none;
+}

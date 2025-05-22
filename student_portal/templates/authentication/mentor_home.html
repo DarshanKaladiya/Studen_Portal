@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Dashboard</title>
+    <link rel="stylesheet" href="{% static 'mentor_home.css' %}">
+</head>
+<body>
+
+    <header>
+        <div class="logo">Mentor Dashboard</div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="#">Student Resources</a></li>
+                <li><a href="{% url 'signout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="file-list">
+        <h2>Student Uploaded Files</h2>
+        {% for file in files %}
+        <div class="file-item">
+            <h3>{{ file.topic }}</h3>
+            <p>{{ file.description }}</p>
+            <p><strong>Uploaded by:</strong> {{ file.user.username }}</p>
+            <p><strong>Uploaded on:</strong> {{ file.uploaded_at }}</p>
+            <p><strong>Status:</strong> {{ file.status }}</p>
+
+            {% if file.file.url|slice:"-3:" == "pdf" %}
+                <a href="{{ file.file.url }}" target="_blank" class="view-btn">View PDF</a>
+            {% elif file.file.url|slice:"-3:" == "jpg" or file.file.url|slice:"-3:" == "png" %}
+                <img src="{{ file.file.url }}" alt="Uploaded Image" class="uploaded-img">
+            {% elif file.file.url|slice:"-3:" == "mp4" or file.file.url|slice:"-3:" == "mov" %}
+                <video controls>
+                    <source src="{{ file.file.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            {% else %}
+                <a href="{{ file.file.url }}" download>Download File</a>
+            {% endif %}
+
+            <div class="file-actions">
+                <form action="{% url 'approve_file' file.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="approve-btn">Approve</button>
+                </form>
+
+                <form action="{% url 'reject_file' file.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="reject-btn">Reject</button>
+                </form>
+            </div>
+        </div>
+        {% empty %}
+        <p>No files available for approval.</p>
+        {% endfor %}
+    </section>
+
+</body>
+</html>

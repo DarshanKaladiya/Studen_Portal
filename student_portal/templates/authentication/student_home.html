@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Home - Upload Files</title>
+    <link rel="stylesheet" href="{% static 'student_home.css' %}">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <div class="logo">Student Dashboard</div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="#">My Files</a></li>
+                <li><a href="{% url 'signout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- File Upload Section -->
+    <section class="upload-section">
+        <h2>Upload Your Study Material</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="topic">Topic:</label>
+            <input type="text" name="topic" placeholder="Enter topic name" required>
+
+            <label for="description">Description:</label>
+            <textarea name="description" placeholder="Write a short description..." required></textarea>
+
+            <label for="file">Upload File:</label>
+            <input type="file" name="file" required>
+
+            <button type="submit">Upload</button>
+        </form>
+    </section>
+
+    <!-- Display Uploaded Files -->
+<section class="file-list">
+    <h2>Uploaded Files</h2>
+    {% for file in files %}
+    <div class="file-item">
+        <h3>{{ file.topic }}</h3>
+        <p>{{ file.description }}</p>
+        <p><strong>Uploaded on:</strong> {{ file.uploaded_at }}</p>
+
+        {% if file.file.url|slice:"-3:" == "pdf" %}
+        <div class="file-actions">
+            <a href="{{ file.file_url }}" target="_blank" class="view-btn">View PDF</a>
+        {% elif file.file.url|slice:"-3:" == "jpg" or file.file.url|slice:"-3:" == "png" %}
+            <img src="{{ file.file.url }}" alt="Uploaded Image">
+        {% elif file.file.url|slice:"-3:" == "mp4" or file.file.url|slice:"-3:" == "mov" %}
+            <video width="320" height="240" controls>
+                <source src="{{ file.file.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        {% else %}
+            <a href="{{ file.file.url }}" download>Download File</a>
+        {% endif %}
+
+            <form action="{% url 'delete_file' file.id %}" method="post" class="delete-form">
+                {% csrf_token %}
+                <button type="submit" class="delete-btn">Delete</button>
+            </form>
+        </div>
+
+    </div>
+    {% empty %}
+    <p>No files uploaded yet.</p>
+    {% endfor %}
+</section>
+
+</body>
+</html>

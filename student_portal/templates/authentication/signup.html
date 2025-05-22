@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="{% static 'signup.css' %}">
+</head>
+<body>
+    <h3>Signup</h3>
+
+    {% for message in message %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>Message : </strong> {{ message }}
+    <button type="button" class="class" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    {% endfor %}
+
+    <form action="/signup" method="post">
+    {% csrf_token %}
+        <label>Username</label>
+        <input type="text" id="username" name="username" placeholder="Create a username (only latters and numbers)" required>
+        <br>
+
+        <label>First Name</label>
+        <input type="text" id="fname" name="fname" placeholder="Enter Your First Name" required>
+        <br>
+
+        <label>Last Name</label>
+        <input type="text" id="lname" name="lname" placeholder="Enter Your Last Name" required>
+        <br>
+
+        <label>Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter Your Email Address" required>
+        <br>
+
+        <label>Password</label>
+        <input type="password" id="pass1" name="pass1" placeholder="Create Password" required>
+        <br>
+
+        <label>Confirm Password</label>
+        <input type="password" id="pass2" name="pass2" placeholder="Confirm Your Password" required>
+        <br>
+
+        <label>You are a </label>
+        <input type="radio" name="role" value="student" required> Student
+        <input type="radio" name="role" value="mentor" required> Mentor
+        <br>
+
+        <button type="submit">Sign Up</button>
+
+    </form>
+</body>
+</html>
